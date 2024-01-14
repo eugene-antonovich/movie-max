@@ -1,0 +1,93 @@
+.headerMiddleWrap {
+  margin: 0px 15px;
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: rgb(24, 24, 24);
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+
+  .headerLogoWrap {
+    margin: 0px 15px;
+    font-size: 30px;
+    color: gold;
+
+  }
+
+  .headerSearchWrap {
+    position: relative;
+    margin: 0px 15px;
+    background-color: transparent;
+    width: 60%;
+
+    & input {
+      background-color: rgb(55, 55, 55);
+      padding: 10px;
+      border-radius: 10px;
+      width: 100%;
+      outline: none;
+      border: none;
+      color: rgb(180, 180, 180);
+      font-size: 20px;
+
+      &::placeholder {
+        color: rgb(139, 139, 139);
+        font-size: 16px;
+      }
+    }
+
+    .headerSearchIcon {
+      transition: 0.2s;
+      position: absolute;
+      top: 50%;
+      right: 2%;
+      transform: translate(0, -50%);
+      background-color: transparent;
+      color: gray;
+
+      &:hover {
+        scale: 1.05;
+        transition: 0.2s;
+        cursor: pointer;
+        color: rgba(255, 255, 255, 0.768);
+      }
+
+      &:active {
+        color: gray;
+      }
+    }
+  }
+
+  .headerLogInWrap {
+    margin: 0px 15px;
+
+    .headerLogInButton {
+      padding: 10px 20px;
+      border-radius: 5px;
+      border: none;
+      background-color: rgba(255, 217, 0, 0.579);
+      font-size: 20px;
+      font-weight: 400;
+      transition: 0.2s;
+
+      &:hover {
+        cursor: pointer;
+        background-color: gold;
+        transition: 0.2s;
+      }
+
+      &:active {
+        background-color: rgb(226, 192, 0);
+        transition: 0.2s;
+        scale: 0.98;
+      }
+    }
+
+    .faUser {
+      background-color: transparent;
+      font-size: 22px;
+    }
+  }
+}

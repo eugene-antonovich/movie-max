@@ -1,0 +1,55 @@
+.signInWrap {
+  position: absolute;
+  width: 30%;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 3px 1px rgb(133, 133, 133);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  .forgotWrap {
+    display: flex;
+    justify-content: end;
+
+    .forgot {
+      transition: 0.2s;
+      color: rgb(157, 155, 155);
+      font-size: 14px;
+
+      &:hover {
+        transition: 0.2s;
+        cursor: pointer;
+        color: gold;
+      }
+
+      &:active {
+        color: rgb(226, 192, 0);
+        transition: 0.2s;
+      }
+    }
+  }
+
+  .signUpWrap {
+    display: flex;
+    justify-content: center;
+    color: rgb(157, 155, 155);
+    font-size: 14px;
+
+    .signUp {
+      font-weight: 500;
+      transition: 0.2s;
+
+      &:hover {
+        transition: 0.2s;
+        cursor: pointer;
+        color: gold;
+      }
+
+      &:active {
+        transition: 0.2s;
+        color: rgb(226, 192, 0);
+      }
+    }
+  }
+}

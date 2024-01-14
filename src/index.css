@@ -6,3 +6,8 @@
     list-style: none;
     font-family: Raleway;
 }
+
+.container {
+    max-width: 1170px;
+    margin: auto;
+}
