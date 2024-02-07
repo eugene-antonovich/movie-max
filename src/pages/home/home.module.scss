@@ -1,0 +1,44 @@
+.cardsWrap {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.showMoreButtonWrap {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  .showMoreButton {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 5px 15px;
+    background-color: transparent;
+    border: none;
+    font-size: 20px;
+    color: gray;
+    transition: 0.3s;
+    position: relative;
+
+    &:hover {
+      transition: 0.3s;
+      cursor: pointer;
+      color: gold;
+    }
+
+    &:active {
+      transition: 0.3s;
+      color: rgba(255, 217, 0, 0.726);
+      scale: 0.98;
+    }
+
+    .showMoreButtonIcon {
+      margin-left: 15px;
+      position: absolute;
+      right: -20px;
+      transform: rotate(-3600deg);
+      transition: 20s;
+    }
+  }
+}

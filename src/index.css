@@ -10,4 +10,5 @@
 .container {
     max-width: 1170px;
     margin: auto;
+    z-index: 2;
 }

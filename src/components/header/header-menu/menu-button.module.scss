@@ -1,74 +1,152 @@
-.menuButton {
-  border-radius: 10px;
-  margin: 0px 15px;
-  background-color: transparent;
-  width: 60px;
-  height: 60px;
-  border: none;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-shadow: 0px 0px 3px 1px #3d3d3d72;
+.menu {
+  .menuButton {
+    border-radius: 10px;
+    margin: 0px 15px;
+    background-color: transparent;
+    width: 60px;
+    height: 60px;
+    border: none;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 0px 3px 1px #3d3d3d72;
+    z-index: 1;
 
+    &:hover {
+      cursor: pointer;
+    }
 
-  &:hover {
-    cursor: pointer;
+    .line {
+      position: absolute;
+      display: block;
+      width: 30px;
+      height: 4px;
+      border-radius: 10px;
+      background-color: gold;
+      transition: 1s;
+
+      &::after {
+        content: "";
+        position: absolute;
+        display: block;
+        width: 100%;
+        height: 4px;
+        border-radius: 10px;
+        background-color: gold;
+        top: 12px;
+      }
+
+      &::before {
+        content: "";
+        position: absolute;
+        display: block;
+        width: 100%;
+        height: 4px;
+        border-radius: 10px;
+        background-color: gold;
+        bottom: 12px;
+      }
+    }
+
+    .cross {
+      position: absolute;
+      display: block;
+      width: 30px;
+      height: 4px;
+      border-radius: 10px;
+      background-color: gold;
+      transform: rotate(45deg);
+      transition: 1s;
+
+      &::after {
+        content: "";
+        left: 0;
+        top: 0;
+        position: absolute;
+        display: block;
+        width: 100%;
+        height: 4px;
+        border-radius: 10px;
+        background-color: gold;
+        transform: rotate(90deg);
+      }
+    }
   }
 
-  .line {
-    position: absolute;
-    display: block;
-    width: 30px;
-    height: 4px;
-    border-radius: 10px;
-    background-color: gold;
-    transition: 1s;
+  .item {
+    width: 100%;
+    padding: 20px 10px;
+    color: rgba(255, 217, 0, 0.767);
+    font-size: 15px;
+    transition: 0.2s;
+
+    &:hover {
+      transition: 0.2s;
+      scale: 1.05;
+      cursor: pointer;
+      color: gold;
+    }
+
+    &:active {
+      color: rgba(255, 217, 0, 0.716);
+      scale: 0.99;
+    }
+
+    .itemIcon {
+      margin-right: 5px;
+      font-size: 12px;
+    }
+  }
+
+  .itemDisabled {
+    width: 100%;
+    padding: 20px 10px;
+    color: rgba(107, 107, 107, 0.767);
+    font-size: 15px;
+    transition: 0.2s;
+
+    &:hover {
+      cursor: default;
+    }
+
+    .itemIcon {
+      margin-right: 5px;
+      font-size: 12px;
+    }
+  }
+
+  .menuListWrap {
+    position: relative;
+    padding: 0px 15px;
+
+    .menuList {
+      position: absolute;
+      width: 100%;
+      top: 20px;
+      z-index: 1;
+
+      .menuListButton {
+        margin-top: 50px;
+        z-index: 1;
+      }
+    }
 
     &::after {
       content: "";
       position: absolute;
       display: block;
-      width: 100%;
-      height: 4px;
-      border-radius: 10px;
-      background-color: gold;
-      top: 12px;
-    }
-
-    &::before {
-      content: "";
-      position: absolute;
-      display: block;
-      width: 100%;
-      height: 4px;
-      border-radius: 10px;
-      background-color: gold;
-      bottom: 12px;
+      width: 155px;
+      height: 450px;
+      top: -75px;
+      left: -15px;
+      background-color: rgb(24, 24, 24);
+      border-bottom-left-radius: 10px;
+      border-bottom-right-radius: 10px;
     }
   }
 
-  .cross {
-    position: absolute;
-    display: block;
-    width: 30px;
-    height: 4px;
-    border-radius: 10px;
-    background-color: gold;
-    transform: rotate(45deg);
-    transition: 1s;
-
-    &::after {
-      content: "";
-      left: 0;
-      top: 0;
-      position: absolute;
-      display: block;
-      width: 100%;
-      height: 4px;
-      border-radius: 10px;
-      background-color: gold;
-      transform: rotate(90deg);
-    }
+  .display {
+    display: none;
   }
 }

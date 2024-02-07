@@ -1,22 +1,22 @@
 .buttonWrap {
-    width: 100%;
-    padding: 10px;
-    background-color: rgba(255, 217, 0, 0.579);
-    border: none;
-    border-radius: 5px;
-    font-size: 18px;
-    font-weight: 500;
+  width: 100%;
+  padding: 10px;
+  background-color: rgba(255, 217, 0, 0.579);
+  border: none;
+  border-radius: 5px;
+  font-size: 18px;
+  font-weight: 500;
+  transition: 0.2s;
+  margin: 10px 0px;
+
+  &:hover {
     transition: 0.2s;
-    margin: 10px 0px;
+    cursor: pointer;
+    background-color: gold;
+  }
 
-    &:hover {
-        transition: 0.2s;
-        cursor: pointer;
-        background-color: gold;
-    }
-
-    &:active {
-        transition: 0.2s;
-        background-color: rgb(226, 192, 0);
-    }
+  &:active {
+    transition: 0.2s;
+    background-color: rgb(226, 192, 0);
+  }
 }

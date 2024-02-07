@@ -1,13 +1,11 @@
-import button from "./form-button.module.scss"
+import button from "./form-button.module.scss";
 
 interface FormButtonProps {
-    title: string
+  title: string;
 }
 
 const FormButton = (props: FormButtonProps) => {
-    return (
-        <button className={button.buttonWrap}>{props.title}</button>
-    )
-}
+  return <button className={button.buttonWrap}>{props.title}</button>;
+};
 
 export default FormButton;

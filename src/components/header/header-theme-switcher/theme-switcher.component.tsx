@@ -10,13 +10,16 @@ const ThemeSwitcher = () => {
 
   const toggleTheme = () => {
     setSwitchTheme((switchTheme: boolean) => !switchTheme);
-    setTheme((theme: boolean) => !theme)
+    setTheme((theme: boolean) => !theme);
   };
+
   return (
     <div className={switcher.themeWrap} onClick={toggleTheme}>
       <FontAwesomeIcon icon={faCircleHalfStroke} />
       <div
-        className={switchTheme ? switcher.themeSwitcher : switcher.themeSwitcherDark}
+        className={
+          switchTheme ? switcher.themeSwitcher : switcher.themeSwitcherDark
+        }
       ></div>
     </div>
   );
