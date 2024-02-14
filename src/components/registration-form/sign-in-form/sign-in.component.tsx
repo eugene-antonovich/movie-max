@@ -1,22 +1,28 @@
 import sign from "./sign-in.module.scss";
 import FormButton from "../form-button/form-button.component";
 import { Link } from "react-router-dom";
-import { faEyeSlash, faEye } from "@fortawesome/free-solid-svg-icons";
+import { faEyeSlash, faEye, faL } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { authorization, notAuthorization } from "../../../actions/action";
+import { ThemeContext } from "../../../App";
 
 const SignInComponent = () => {
+  const dispatch = useDispatch();
 
- const funcTest = () => {
-  return console.log(JSON.parse(localStorage.getItem('verify')!))
- }
+  const { theme } = useContext(ThemeContext);
+
   const onlyEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   const [viewPassword, setViewPassword] = useState("password");
+
   const [checkEmail, setCheckEmail] = useState(true);
+
   const [checkPassword, setCheckPassword] = useState(true);
 
   const [email, setEmail] = useState("");
+
   const [password, setPassword] = useState("");
 
   const getEmail = (event: any) => {
@@ -34,31 +40,39 @@ const SignInComponent = () => {
   };
 
   const funcName = () => {
-    onlyEmail.test(email)
-      ? setCheckEmail(true)
-      : setCheckEmail(false);
+    onlyEmail.test(email) ? setCheckEmail(true) : setCheckEmail(false);
   };
 
   const funcPassword = () => {
     password.length > 6 ? setCheckPassword(true) : setCheckPassword(false);
   };
 
+  const isAuthorized = useSelector((state: any) => state.authorization);
+
+  const abc = () => {
+    if (checkEmail && checkPassword && isAuthorized) {
+      return true;
+    } else {
+      return false;
+    }
+  };
   const token = async () => {
-    await fetch("https://studapi.teachmeskills.by/auth/jwt/create/", {
-      headers: {
-        "Content-Type": "application/json",
-      },
-      method: "POST",
-      body: JSON.stringify({
-        email: email,
-        password: password,
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        localStorage.setItem("refresh", JSON.stringify(data.refresh));
-        localStorage.setItem("access", JSON.stringify(data.access));
-      });
+    if (checkEmail && checkPassword)
+      await fetch("https://studapi.teachmeskills.by/auth/jwt/create/", {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "POST",
+        body: JSON.stringify({
+          email: email,
+          password: password,
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          localStorage.setItem("refresh", JSON.stringify(data.refresh));
+          localStorage.setItem("access", JSON.stringify(data.access));
+        });
     try {
       const response_verify = await fetch(
         "https://studapi.teachmeskills.by/auth/jwt/verify/",
@@ -72,12 +86,17 @@ const SignInComponent = () => {
           }),
         }
       );
-      return localStorage.setItem("verify", JSON.stringify(response_verify.ok));
+      if (response_verify.ok) {
+        localStorage.setItem('authorization', JSON.stringify(true))
+        dispatch(authorization());
+      } else {
+        localStorage.setItem('authorization', JSON.stringify(false))
+        dispatch(notAuthorization());
+      }
     } catch (error) {}
     funcName();
     funcPassword();
-
-    funcTest()
+    abc();
   };
 
   return (
@@ -112,11 +131,9 @@ const SignInComponent = () => {
           <span className={sign.forgot}>Forgot your password?</span>
         </Link>
       </div>
-      <Link to={"/"}>
         <div onClick={token}>
           <FormButton title={"Sign in"} />
         </div>
-      </Link>
       <div className={sign.signUpWrap}>
         <span>
           Don't have an account?

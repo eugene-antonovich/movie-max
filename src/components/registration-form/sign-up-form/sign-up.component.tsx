@@ -5,8 +5,12 @@ import { useContext, useEffect, useState } from "react";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ThemeContext } from "../../../App";
+import { useDispatch, useSelector } from "react-redux";
+import { notRegistration, registration } from "../../../actions/action";
 
 const SignUpComponent = () => {
+  const dispatch = useDispatch();
+
   const { theme } = useContext(ThemeContext);
 
   const array: any = [];
@@ -25,6 +29,14 @@ const SignUpComponent = () => {
 
   const onlyLetters = /^[a-zA-Z]+$/;
   const onlyEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  const abc = () => {
+    if (checkName && checkSurname && checkEmail && checkPassword) {
+      console.log("123");
+    } else {
+      console.log("567");
+    }
+  };
 
   const signUpA = () => {
     funcName();
@@ -69,6 +81,7 @@ const SignUpComponent = () => {
     signUpA();
     authorizationClick();
     console.log(array);
+    abc();
   };
 
   const funcName = () => {
@@ -95,21 +108,32 @@ const SignUpComponent = () => {
       : setCheckPassword(false);
   };
 
-  const authorizationClick = () => {
-    fetch("https://studapi.teachmeskills.by/auth/users/", {
-      headers: {
-        "Content-Type": "application/json",
-      },
-      method: "POST",
-      body: JSON.stringify({
-        username: array[0].name,
-        email: array[0].email,
-        password: array[0].password,
-        course_group: 1,
-      }),
-    })
-      .then((response) => console.log(response))
+  const isCorrectData = useSelector((state: any) => state.registration);
+
+  const authorizationClick = async () => {
+    const request = await fetch(
+      "https://studapi.teachmeskills.by/auth/users/",
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "POST",
+        body: JSON.stringify({
+          username: array[0].name,
+          email: array[0].email,
+          password: array[0].password,
+          course_group: 1,
+        }),
+      }
+    )
+      .then((response) => response.ok)
       .catch((error) => console.log("error", error));
+    if (request) {
+      dispatch(registration());
+    } else {
+      dispatch(notRegistration());
+    }
+    abc();
     localStorage.setItem("data-email", JSON.stringify(array[0].email));
     localStorage.setItem("data-password", JSON.stringify(array[0].password));
   };
@@ -230,9 +254,13 @@ const SignUpComponent = () => {
         </button>
       </div>
       <div onClick={func2}>
-        {/* <Link to={"/confirmation"}> */}
-        <FormButton title={"Sign up"} />
-        {/* </Link> */}
+        {isCorrectData ? (
+          <Link to={"/confirmation"}>
+            <FormButton title={"Sign up"} />
+          </Link>
+        ) : (
+          <FormButton title={"Sign up"} />
+        )}
       </div>
       <div className={sign.signInWrap}>
         <span>

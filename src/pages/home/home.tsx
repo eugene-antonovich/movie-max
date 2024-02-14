@@ -1,12 +1,11 @@
 import home from "./home.module.scss";
 import FilmCard from "../../components/cards/film-card/film-card.component";
 import ViewCard from "../view-card/view-card";
-import { useEffect, useRef, useState } from "react";
-import { getPosts } from "../../helpers/get-posts";
-import { faSpinner } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import SearchResult from "../search-result/search.result";
+import { useEffect, useState } from "react";
+import { getMovies, getPosts, movie } from "../../helpers/get-posts";
 import { useDispatch, useSelector } from "react-redux";
-import { cardDataSlice } from "../../App";
+import { addMoreFilms } from "../../actions/action";
 
 interface dataInterface {
   id: number;
@@ -23,52 +22,64 @@ const Home = () => {
 
   const [dataArray, setDataArray] = useState<dataInterface[]>([]);
 
+  const isModalOpen = useSelector((state: any) => state.openModal);
+
+  const posts = useSelector((state: any) => state.posts.docs);
+
   useEffect(() => {
-    (async () => {
-      const data = await getPosts(
-        `https://api.kinopoisk.dev/v1.4/movie?page=1&limit=${20}`
-      );
-      const listData = data.docs.map((item: any) => ({
-        id: item.id,
-        name: item.name,
-        imdb: item.rating.imdb,
-        poster: item.poster.url,
-        genres: item.genres[0].name,
-        genres2: item.genres[1]?.name,
-        genres3: item.genres[2]?.name,
-      }));
-      setDataArray(listData);
-    })();
+    getMovies(movie, setDataArray);
+    handleButtonClick();
   }, []);
+  
+  const handleButtonClick = async () => {
+    let num = 20;
+    if (posts) {
+      num = posts.length > 0 ? posts.length + 10 : 20;
+    }
+    dispatch(addMoreFilms(num) as any);
+    setDataArray(
+      posts
+        ? posts.map((item: any) => ({
+            id: item ? item.id : "",
+            name: item ? item.name : "",
+            imdb: item ? item.rating.imdb : "",
+            poster: item ? item.poster.url : "",
+            genres: item ? item.genres[0].name : "",
+            genres2: item ? item.genres[1]?.name : "",
+            genres3: item ? item.genres[2]?.name : "",
+          }))
+        : null
+    );
+  };
 
-  const isModalOpen = useSelector((state: any) => state.cardData.isModalOpen);
-  const dataIsFetched = useSelector(
-    (state: any) => state.cardData.dataIsFetched
+  const searchResultIsActive = useSelector(
+    (state: any) => state.searchResultIsActive
   );
-
   return (
     <div className="container">
       <div className={home.cardsWrap}>
-        {dataArray.map((post: any) => (
-          <FilmCard
-            key={post.id}
-            id={post.id}
-            image={post.poster}
-            rating={post.imdb}
-            name={post.name}
-            year={post.year}
-            genres={[post.genres, post.genres2, post.genres3]}
-          />
-        ))}
+        {searchResultIsActive
+          ? []
+          : dataArray &&
+            dataArray.map((post: any) => (
+              <FilmCard
+                key={post.id}
+                id={post.id}
+                image={post.poster}
+                rating={post.imdb}
+                name={post.name}
+                genres={[post.genres, post.genres2, post.genres3]}
+              />
+            ))}
       </div>
-      {isModalOpen && dataIsFetched && <ViewCard />}
+      {isModalOpen && <ViewCard />}
+      {searchResultIsActive && <SearchResult />}
       <div className={home.showMoreButtonWrap}>
-        <button className={home.showMoreButton}>
-          Show more{" "}
-          <span className={home.showMoreButtonIcon}>
-            <FontAwesomeIcon icon={faSpinner} />
-          </span>
-        </button>
+        {!searchResultIsActive && (
+          <button className={home.showMoreButton} onClick={handleButtonClick}>
+            Show more
+          </button>
+        )}
       </div>
     </div>
   );

@@ -7,7 +7,9 @@ import { ThemeContext } from "../../App";
 
 const Header = () => {
   const { theme } = useContext(ThemeContext);
+
   const body = document.body;
+
   return (
     <header>
       <div

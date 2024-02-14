@@ -1,20 +1,55 @@
-
-import { getPosts } from "../helpers/get-posts";
-
-const initialState = {
-  OpenModal: false,
-  post: null,
-  morePosts: null,
+interface initialStateTypes {
+  registration: boolean,
+  authorization: boolean,
+  openModal: boolean;
+  post: string | null | [];
+  posts: string | null | [];
+  newPost: string | null;
+  searchResult: string | null | [];
+  searchResultIsActive: boolean;
+  isFaorite: boolean
+}
+const initialState: initialStateTypes = {
+  registration: false,
+  authorization: JSON.parse(localStorage.getItem('authorization')!),
+  openModal: false,
+  post: [],
+  posts: [],
+  newPost: null,
+  searchResult: null,
+  searchResultIsActive: false,
+  isFaorite: false,
 };
 
-export const reducer = (state: any, action: Record<string, string>) => {
+export const reducer = (
+  state = initialState,
+  action: Record<string, string>
+) => {
   switch (action.type) {
+    case "REGISTRATION":
+      return { ...state, registration: true };
+    case "NOT_REGISTRATION":
+      return { ...state, registration: false };
+    case "AUTHORIZATION":
+      return { ...state, authorization: true };
+    case "NOT_AUTHORIZATION":
+      return { ...state, authorization: false };
     case "OPEN_MODAL_CARD":
-      return (state = true);
+      return { ...state, openModal: true };
     case "CLOSE_MODAL_CARD":
-      return (state = false);
-    case "SHOW_POST/fulfilled":
+      return { ...state, openModal: false };
+    case "SHOW_FILM_BY_ID":
       return { ...state, post: action.payload };
+    case "SHOW_MORE":
+      return { ...state, posts: action.payload };
+    case "SHOW_FILMS":
+      return { ...state, newPosts: action.payload };
+    case "SHOW_MOVIES_BY_SEARCH":
+      return { ...state, searchResult: action.payload };
+    case "SHOW_MOVIES_BY_SEARCH_IS_ACTIVE":
+      return { ...state, searchResultIsActive: true };
+      case "SHOW_MOVIES_BY_SEARCH_IS_NOT_ACTIVE":
+        return { ...state, searchResultIsActive: false };
     default:
       return state;
   }

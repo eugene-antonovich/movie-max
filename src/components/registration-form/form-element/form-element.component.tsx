@@ -1,4 +1,3 @@
-import { useState } from "react";
 import element from "./form-element.module.scss";
 
 interface FormElementProps {
@@ -6,7 +5,6 @@ interface FormElementProps {
   placeholder: string;
   type: string;
 }
-
 
 const FormElement = (props: FormElementProps) => {
   return (

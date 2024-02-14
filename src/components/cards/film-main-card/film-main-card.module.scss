@@ -7,8 +7,8 @@
   border-radius: 10px;
   box-shadow: 0px 0px 2px 2px #ffffff96;
   background-color: rgb(90, 90, 90);
-  position: absolute;
-  top: 50%;
+  position: fixed;
+  top: 47%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 10;
@@ -74,21 +74,95 @@
         right: 10px;
         font-size: 12px;
 
-        .cardRatingImdb,
-        .cardRatingKp {
+        .cardRatingTop,
+        .cardRatingMiddle,
+        .cardRatingLow {
           margin-top: 10px;
           border-radius: 10px;
           width: 100%;
           display: flex;
           padding: 10px;
-          background-color: green;
           justify-content: space-between;
         }
 
-        .cardRatingKp {
-          background-color: orange;
+        .cardRatingTop {
+          background-color: rgb(0, 144, 0);
         }
+        .cardRatingMiddle {
+         background-color: rgb(227, 155, 0);
+        }
+
+        .cardRatingLow {
+          background-color: rgb(227, 64, 0);
+          }
       }
+
+      .cardTrailerWrap {
+        // position: absolute;
+        // top: -1000%;
+        display: none;
+      }
+      &:hover {
+        .cardTrailerWrap {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          background-color: rgba(0, 0, 0, 0.653);
+          width: 100.5%;
+          border-radius: 10px;
+          height: 100%;
+          display: flex;
+          transform: translate(-50%, -50%);
+  
+          .cardTrailer {
+            transition: 0.5s;
+            width: 100%;
+            height: 100%;
+            font-size: 30px;
+            background-color: transparent;
+            border: none;
+            color: rgb(196, 196, 196);
+  
+            &:hover {
+              color: gold;
+              transition: 0.3s;
+              cursor: pointer;
+              scale: 1.05;
+              transition: 0.5s;
+            }
+          }
+        }
+  
+          // .cardTrailerWindow {
+          //   border: none;
+          //   z-index: 10;
+          //   top: 50%;
+          //   left: 50%;
+          //   transform: translate(-50%, -50%);
+          //   position: fixed;
+          //   width: 100%;
+          //   height: 580px;
+          // }
+  
+          // .cardCloseTrailer {
+          //   transition: 0.5s;
+          //   position: absolute;
+          //   top: 50%;
+          //   right: -30%;
+          //   font-size: 65px;
+          //   transform: translate(0, -50%);
+          //   color: white;
+          //   background-color: transparent;
+          //   border: none;
+  
+          //   &:hover {
+          //     color: gold;
+          //     transition: 0.3s;
+          //     cursor: pointer;
+          //     scale: 1.05;
+          //   }
+          // }
+        }
     }
 
     .cardInfoWrap {
@@ -142,36 +216,11 @@
                 color: white;
                 cursor: pointer;
               }
-            }
 
-            .cardPersonImage {
-              position: absolute;
-              width: 50%;
-              top: -150px;
-              display: none;
-
-              & img {
-                width: 100%;
-              }
             }
           }
         }
 
-        .cardTrailerWrap {
-          .cardTrailer {
-            padding: 5px 10px 5px 0px;
-            font-size: 20px;
-            background-color: transparent;
-            border: none;
-            color: rgb(196, 196, 196);
-
-            &:hover {
-              color: gold;
-              transition: 0.3s;
-              cursor: pointer;
-              scale: 1.05;
-            }
-          }
 
           .cardTrailerWindow {
             border: none;
@@ -182,6 +231,7 @@
             position: fixed;
             width: 100%;
             height: 580px;
+            border-radius: 10px;
           }
 
           .cardCloseTrailer {
@@ -202,7 +252,6 @@
               scale: 1.05;
             }
           }
-        }
 
         .descriptionHeaderWrap {
           display: flex;
@@ -220,19 +269,20 @@
               font-size: 24px;
             }
 
-            .cardButtonOpenDescription {
-              margin: 0px 10px;
+            .cardButtonOpenDescription,
+            .cardButtonCloseDescription {
               font-size: 24px;
-              background-color: transparent;
+              margin: 0px 10px;
               border: none;
               color: rgb(167, 167, 167);
               transition: 0.3s;
+              background-color: transparent;
 
               &:hover {
-                transition: 0.3s;
-                cursor: pointer;
-                scale: 1.02;
-                color: gold;
+              transition: 0.3s;
+              scale: 1.02;
+              cursor: pointer;
+              color: gold;
               }
 
               &:active {
@@ -243,6 +293,13 @@
             }
           }
 
+          .cardButtonOpenDescription {
+            position: fixed;
+            z-index: 100;
+            top: 20px;
+            left: 10px;
+          }
+          .descriptionHeaderRightActive,
           .descriptionHeaderRight {
             margin: 0px 20px;
 
@@ -259,16 +316,30 @@
               color: rgba(255, 217, 0, 0.798);
             }
           }
+
+          .descriptionHeaderRightActive {
+            color: gold;
+          }
         }
       }
     }
   }
   .cardBottomWrap {
+    position: fixed;
+    background-color: rgb(30, 30, 30);
     color: white;
-    margin-top: 30px;
+    top: 0;
+    left: 0;
+    border-radius: 5px;
+    width: 100%;
+    height: 100%;
+    padding: 60px;
+    overflow: auto;
+    text-overflow: ellipsis;
+
 
     .cardDescription {
-      font-size: 20px;
+      font-size: 28px;
       font-style: italic;
       line-height: 30px;
     }

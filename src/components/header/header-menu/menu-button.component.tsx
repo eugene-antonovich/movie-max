@@ -1,29 +1,33 @@
 import menu from "./menu-button.module.scss";
 import MenuItem from "./menu-item.component";
 import FormButton from "../../registration-form/form-button/form-button.component";
-import { useContext, useEffect, useState } from "react";
+import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { AuthorizationContext } from "../../../App";
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { notAuthorization } from "../../../actions/action";
 import {
   faBookmark,
-  faFire,
   faGear,
   faHouse,
+  faList,
 } from "@fortawesome/free-solid-svg-icons";
 
 const MenuButton = () => {
-  const [buttonMenu, setButtonMenu] = useState(true);
+  const dispatch = useDispatch();
 
-  const { authorization, setAuthorization } = useContext(AuthorizationContext);
+  const [buttonMenu, setButtonMenu] = useState(true);
 
   const themeSwitch = () => {
     setButtonMenu((buttonMenu: boolean) => !buttonMenu);
   };
 
-  const changeAuthorization = () => {
-    setAuthorization((authorization: boolean) => !authorization);
-  };
+  const isAuthorized = useSelector((state: any) => state.authorization);
 
+  const logOut = () => {
+    dispatch(notAuthorization());
+    localStorage.setItem("authorization", JSON.stringify(false));
+  };
   return (
     <div className={menu.menu}>
       <button className={menu.menuButton} onClick={themeSwitch}>
@@ -31,29 +35,51 @@ const MenuButton = () => {
       </button>
       <div className={!buttonMenu ? menu.menuListWrap : menu.display}>
         <ul className={menu.menuList}>
-          <MenuItem
-            title="Home"
-            icon={<FontAwesomeIcon icon={faHouse} />}
-            isActive={true}
-          />
-          <MenuItem
-            title="Trends"
-            icon={<FontAwesomeIcon icon={faFire} />}
-            isActive={authorization}
-          />
-          <MenuItem
-            title="Favorites"
-            icon={<FontAwesomeIcon icon={faBookmark} />}
-            isActive={authorization}
-          />
+          <Link to={"/"}>
+            <MenuItem
+              title="Home"
+              icon={<FontAwesomeIcon icon={faHouse} />}
+              isActive={true}
+            />
+          </Link>
+          <Link to={"/categories"}>
+            <MenuItem
+              title="Categories"
+              icon={<FontAwesomeIcon icon={faList} />}
+              isActive={true}
+            />
+          </Link>
+          {isAuthorized ? (
+            <Link to={"/favorites"}>
+              <MenuItem
+                title="Favorites"
+                icon={<FontAwesomeIcon icon={faBookmark} />}
+                isActive={isAuthorized}
+              />
+            </Link>
+          ) : (
+            <MenuItem
+              title="Favorites"
+              icon={<FontAwesomeIcon icon={faBookmark} />}
+              isActive={isAuthorized}
+            />
+          )}
           <MenuItem
             title="Settings"
             icon={<FontAwesomeIcon icon={faGear} />}
-            isActive={authorization}
+            isActive={isAuthorized}
           />
-          <div className={menu.menuListButton} onClick={changeAuthorization}>
-            <FormButton title={authorization ? "Log Out" : "Sign In"} />
-          </div>
+          {isAuthorized ? (
+            <div className={menu.menuListButton} onClick={logOut}>
+              <FormButton title={"Log Out"} />
+            </div>
+          ) : (
+            <Link to={"/sign-in"}>
+              <div className={menu.menuListButton}>
+                <FormButton title={"Sign In"} />
+              </div>
+            </Link>
+          )}
         </ul>
       </div>
     </div>

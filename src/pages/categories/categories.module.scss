@@ -1,0 +1,23 @@
+.categoryWrap {
+  margin-top: 20px;
+  margin: 20px auto;
+  width: 95%;
+  padding: 0px 10px;
+  background-color: rgb(26, 26, 26);
+  border-radius: 20px;
+  position: relative;
+
+  .categoryTitle {
+    color: gold;
+    width: 95%;
+    margin: 20px 15px;
+    font-size: 30px;
+    position: absolute;
+  }
+
+  .cardsWrap {
+    padding-top: 60px;
+    display: flex;
+    overflow: auto;
+  }
+}

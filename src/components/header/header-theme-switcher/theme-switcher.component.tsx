@@ -1,16 +1,15 @@
 import switcher from "./theme.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleHalfStroke } from "@fortawesome/free-solid-svg-icons";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { ThemeContext } from "../../../App";
 
 const ThemeSwitcher = () => {
-  const [switchTheme, setSwitchTheme] = useState(true);
-  const { theme, setTheme } = useContext(ThemeContext);
+  const { theme , setTheme } = useContext(ThemeContext);
 
   const toggleTheme = () => {
-    setSwitchTheme((switchTheme: boolean) => !switchTheme);
     setTheme((theme: boolean) => !theme);
+    localStorage.setItem('theme', JSON.stringify(theme))
   };
 
   return (
@@ -18,7 +17,7 @@ const ThemeSwitcher = () => {
       <FontAwesomeIcon icon={faCircleHalfStroke} />
       <div
         className={
-          switchTheme ? switcher.themeSwitcher : switcher.themeSwitcherDark
+          theme ? switcher.themeSwitcher : switcher.themeSwitcherDark
         }
       ></div>
     </div>
