@@ -12,6 +12,7 @@ import {
   faHouse,
   faList,
 } from "@fortawesome/free-solid-svg-icons";
+import { initialStateTypes } from "../../../interface/interface";
 
 const MenuButton = () => {
   const dispatch = useDispatch();
@@ -22,12 +23,15 @@ const MenuButton = () => {
     setButtonMenu((buttonMenu: boolean) => !buttonMenu);
   };
 
-  const isAuthorized = useSelector((state: any) => state.authorization);
+  const isAuthorized = useSelector((state: initialStateTypes) => state.authorization);
 
   const logOut = () => {
     dispatch(notAuthorization());
     localStorage.setItem("authorization", JSON.stringify(false));
+    localStorage.removeItem('refresh')
+    localStorage.removeItem('access')
   };
+  
   return (
     <div className={menu.menu}>
       <button className={menu.menuButton} onClick={themeSwitch}>
@@ -69,6 +73,7 @@ const MenuButton = () => {
             icon={<FontAwesomeIcon icon={faGear} />}
             isActive={isAuthorized}
           />
+
           {isAuthorized ? (
             <div className={menu.menuListButton} onClick={logOut}>
               <FormButton title={"Log Out"} />

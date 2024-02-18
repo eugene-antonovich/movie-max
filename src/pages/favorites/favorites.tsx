@@ -2,15 +2,16 @@ import card from "./favorites.module.scss";
 import ViewCard from "../view-card/view-card";
 import FilmCard from "../../components/cards/film-card/film-card.component";
 import { useSelector } from "react-redux";
+import { initialStateTypes } from "../../interface/interface";
 
 const Favorites = () => {
     const favorite = localStorage.getItem("favorite")
     ? JSON.parse(localStorage.getItem("favorite")!)
     : [];
 
-  const isModalOpen = useSelector((state: any) => state.openModal);
+  const isModalOpen = useSelector((state: initialStateTypes) => state.openModal);
 
-  const isAuthorized = useSelector((state: any) => state.authorization);
+  const isAuthorized = useSelector((state: initialStateTypes) => state.authorization);
 
   return (
     <div className="container">

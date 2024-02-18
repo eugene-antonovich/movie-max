@@ -1,10 +1,5 @@
 import element from "./form-element.module.scss";
-
-interface FormElementProps {
-  id?: string;
-  placeholder: string;
-  type: string;
-}
+import { FormElementProps } from "../../../interface/interface";
 
 const FormElement = (props: FormElementProps) => {
   return (

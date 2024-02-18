@@ -11,7 +11,7 @@
     justify-content: center;
     align-items: center;
     box-shadow: 0px 0px 3px 1px #3d3d3d72;
-    z-index: 1;
+    z-index: 31;
 
     &:hover {
       cursor: pointer;
@@ -125,11 +125,11 @@
       width: 140%;
       left: 0;
       top: 20px;
-      z-index: 1;
+      z-index: 31;
 
       .menuListButton {
         margin-top: 50px;
-        z-index: 1;
+        z-index: 31;
       }
     }
 
@@ -144,6 +144,7 @@
       background-color: rgb(24, 24, 24);
       border-bottom-left-radius: 10px;
       border-bottom-right-radius: 10px;
+      z-index: 30;
     }
   }
 

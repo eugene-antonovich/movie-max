@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { closeModalCard } from "../../../actions/action";
 import { posterMissing } from "../../../helpers/get-posts";
+import { initialStateTypes, FilmMainCardProps } from "../../../interface/interface";
 import {
   faChevronDown,
   faChevronUp,
@@ -12,33 +13,7 @@ import {
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 
-
-interface PersonsType {
-  id: number;
-  photo: string;
-  name: string;
-  enName: string;
-  description: string;
-  profession: string;
-  enProfession: string;
-}
-interface FilmMainCard {
-  name: string;
-  id?: string;
-  year: string;
-  genre?: string[];
-  type?: string;
-  country?: string[];
-  ageRating?: number;
-  imdb: number;
-  kp: number;
-  image: string;
-  shortDescription?: string;
-  description?: string;
-  persons?: PersonsType[];
-  trailer?: string;
-}
-const FilmMainCard = (props: any) => {
+const FilmMainCard = (props: FilmMainCardProps) => {
   const imdb =
     props.imdb < 6.5
       ? card.cardRatingLow
@@ -59,7 +34,9 @@ const FilmMainCard = (props: any) => {
 
   const [trailer, setTrailer] = useState(false);
 
-  const isModalOpen = useSelector((state: any) => state.openModal);
+  const isModalOpen = useSelector(
+    (state: initialStateTypes) => state.openModal
+  );
 
   const changeTrailer = () => {
     setTrailer(!trailer);
@@ -92,10 +69,10 @@ const FilmMainCard = (props: any) => {
             </span>
           </div>
           <div className={card.cardTrailerWrap}>
-              <button className={card.cardTrailer} onClick={changeTrailer}>
-                Trailer <FontAwesomeIcon icon={faVideo} />
-              </button>
-            </div>
+            <button className={card.cardTrailer} onClick={changeTrailer}>
+              Trailer <FontAwesomeIcon icon={faVideo} />
+            </button>
+          </div>
         </div>
         <div className={card.cardInfoWrap}>
           <span className={card.infoItem}>
@@ -135,20 +112,17 @@ const FilmMainCard = (props: any) => {
                 </div>
               ))}
             </div>
-              {trailer && (
-                <iframe
-                  src={props.trailer}
-                  className={card.cardTrailerWindow}
-                ></iframe>
-              )}
-              {trailer && (
-                <button
-                  className={card.cardCloseTrailer}
-                  onClick={changeTrailer}
-                >
-                  <FontAwesomeIcon icon={faXmark} />
-                </button>
-              )}
+            {trailer && (
+              <iframe
+                src={props.trailer}
+                className={card.cardTrailerWindow}
+              ></iframe>
+            )}
+            {trailer && (
+              <button className={card.cardCloseTrailer} onClick={changeTrailer}>
+                <FontAwesomeIcon icon={faXmark} />
+              </button>
+            )}
             <div className={card.descriptionHeaderWrap}>
               <div className={card.descriptionHeaderLeft}>
                 <h4 className={card.descriptionTitle}>Description</h4>

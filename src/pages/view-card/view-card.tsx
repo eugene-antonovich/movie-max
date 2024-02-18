@@ -2,7 +2,6 @@ import FilmMainCard from "../../components/cards/film-main-card/film-main-card.c
 import { useSelector } from "react-redux";
 
 const ViewCard = () => {
-
   const modalCard = useSelector((state:any) => state.post);
 
   const {

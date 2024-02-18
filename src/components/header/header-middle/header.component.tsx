@@ -9,6 +9,7 @@ import {
   searchMovies,
   showMoviesBySearchIsNotActive,
 } from "../../../actions/action";
+import { initialStateTypes } from "../../../interface/interface";
 
 const HeaderComponent = () => {
   const dispatch = useDispatch();
@@ -37,11 +38,13 @@ const HeaderComponent = () => {
     }
   };
 
-  const isAuthorized = useSelector((state: any) => state.authorization)
+  const isAuthorized = useSelector((state: initialStateTypes) => state.authorization)
 
   const logOut = () => {
     dispatch(notAuthorization())
     localStorage.setItem('authorization', JSON.stringify(false))
+    localStorage.removeItem('refresh')
+    localStorage.removeItem('access')
   }
   return (
     <div className={header.headerMiddleWrap}>

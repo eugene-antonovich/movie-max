@@ -1,21 +1,11 @@
-interface initialStateTypes {
-  registration: boolean,
-  authorization: boolean,
-  openModal: boolean;
-  post: string | null | [];
-  posts: string | null | [];
-  newPost: string | null;
-  searchResult: string | null | [];
-  searchResultIsActive: boolean;
-  isFaorite: boolean
-}
+import { initialStateTypes } from "../interface/interface";
+
 const initialState: initialStateTypes = {
   registration: false,
-  authorization: JSON.parse(localStorage.getItem('authorization')!),
+  authorization: JSON.parse(localStorage.getItem("authorization")!),
   openModal: false,
   post: [],
   posts: [],
-  newPost: null,
   searchResult: null,
   searchResultIsActive: false,
   isFaorite: false,
@@ -42,14 +32,12 @@ export const reducer = (
       return { ...state, post: action.payload };
     case "SHOW_MORE":
       return { ...state, posts: action.payload };
-    case "SHOW_FILMS":
-      return { ...state, newPosts: action.payload };
     case "SHOW_MOVIES_BY_SEARCH":
       return { ...state, searchResult: action.payload };
     case "SHOW_MOVIES_BY_SEARCH_IS_ACTIVE":
       return { ...state, searchResultIsActive: true };
-      case "SHOW_MOVIES_BY_SEARCH_IS_NOT_ACTIVE":
-        return { ...state, searchResultIsActive: false };
+    case "SHOW_MOVIES_BY_SEARCH_IS_NOT_ACTIVE":
+      return { ...state, searchResultIsActive: false };
     default:
       return state;
   }

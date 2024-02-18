@@ -9,11 +9,6 @@ export const closeModalCard = () => ({
   type: "CLOSE_MODAL_CARD",
 });
 
-const showMorePosts = (posts: any) => ({
-  type: "SHOW_MORE",
-  payload: posts,
-});
-
 export const authorization = () => ({
   type: "AUTHORIZATION",
 });
@@ -26,28 +21,19 @@ export const registration = () => ({
   type: "REGISTRATION",
 });
 
-export const notRegistration  = () => ({
+export const notRegistration = () => ({
   type: "NOT_REGISTRATION",
 });
 
-export const addMoreFilms =
-  (count: any) => async (dispatch: typeof store.dispatch) => {
-    const data = await getPosts(
-      `https://api.kinopoisk.dev/v1.4/movie?page=1&limit=${count}`
-    );
-    dispatch(showMorePosts(data));
-  };
+const showMorePosts = (posts: any) => ({
+  type: "SHOW_MORE",
+  payload: posts,
+});
 
 const showFilmById = (idFilm: any) => ({
   type: "SHOW_FILM_BY_ID",
   payload: idFilm,
 });
-
-export const getFilmById =
-  (id: any) => async (dispatch: typeof store.dispatch) => {
-    const data = await getPosts(`https://api.kinopoisk.dev/v1.4/movie/${id}`);
-    return dispatch(showFilmById(data));
-  };
 
 const showMoviesBySearch = (posts: any) => ({
   type: "SHOW_MOVIES_BY_SEARCH",
@@ -69,4 +55,18 @@ export const searchMovies =
     );
     dispatch(showMoviesBySearch(data));
     dispatch(showMoviesBySearchIsActive());
+  };
+
+export const addMoreFilms =
+  (count: any) => async (dispatch: typeof store.dispatch) => {
+    const data = await getPosts(
+      `https://api.kinopoisk.dev/v1.4/movie?page=1&limit=${count}`
+    );
+    dispatch(showMorePosts(data));
+  };
+
+export const getFilmById =
+  (id: any) => async (dispatch: typeof store.dispatch) => {
+    const data = await getPosts(`https://api.kinopoisk.dev/v1.4/movie/${id}`);
+    return dispatch(showFilmById(data));
   };

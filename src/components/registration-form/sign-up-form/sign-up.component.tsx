@@ -1,16 +1,16 @@
 import sign from "./sign-up.module.scss";
 import FormButton from "../form-button/form-button.component";
 import { Link } from "react-router-dom";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ThemeContext } from "../../../App";
 import { useDispatch, useSelector } from "react-redux";
 import { notRegistration, registration } from "../../../actions/action";
+import { initialStateTypes } from "../../../interface/interface";
 
 const SignUpComponent = () => {
   const dispatch = useDispatch();
-
   const { theme } = useContext(ThemeContext);
 
   const array: any = [];
@@ -30,19 +30,29 @@ const SignUpComponent = () => {
   const onlyLetters = /^[a-zA-Z]+$/;
   const onlyEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  const abc = () => {
-    if (checkName && checkSurname && checkEmail && checkPassword) {
-      console.log("123");
+  const isCorrectData = useSelector(
+    (state: initialStateTypes) => state.registration
+  );
+
+  const conditionsTrue = () => {
+    if (
+      !checkName &&
+      !checkSurname &&
+      !checkEmail &&
+      !checkPassword &&
+      isCorrectData
+    ) {
+      return true;
     } else {
-      console.log("567");
+      return false;
     }
   };
 
-  const signUpA = () => {
-    funcName();
-    funcSurname();
-    funcEmail();
-    funcPassword();
+  const checkingAllFields = () => {
+    conditionsName();
+    conditionsSurname();
+    conditionsEmail();
+    conditionsPassword();
   };
 
   const getName = (event: any) => {
@@ -71,44 +81,42 @@ const SignUpComponent = () => {
       : setViewPassword("password");
   };
 
-  const func2 = () => {
+  const addData = () => {
     array.push({
       name: name,
       surname: surname,
       email: email,
       password: password,
     });
-    signUpA();
+    checkingAllFields();
     authorizationClick();
     console.log(array);
-    abc();
+    return isCorrectData ? true : false;
   };
 
-  const funcName = () => {
+  const conditionsName = () => {
     onlyLetters.test(array[0].name) && array[0].name.length > 0
       ? setCheckName(true)
       : setCheckName(false);
   };
 
-  const funcSurname = () => {
+  const conditionsSurname = () => {
     onlyLetters.test(array[0].surname) && array[0].surname.length > 0
       ? setCheckSurname(true)
       : setCheckSurname(false);
   };
 
-  const funcEmail = () => {
+  const conditionsEmail = () => {
     onlyEmail.test(array[0].email) && array[0].email.length > 0
       ? setCheckEmail(true)
       : setCheckEmail(false);
   };
 
-  const funcPassword = () => {
+  const conditionsPassword = () => {
     repeatPassword === password && password.length >= 6
       ? setCheckPassword(true)
       : setCheckPassword(false);
   };
-
-  const isCorrectData = useSelector((state: any) => state.registration);
 
   const authorizationClick = async () => {
     const request = await fetch(
@@ -126,14 +134,14 @@ const SignUpComponent = () => {
         }),
       }
     )
-      .then((response) => response.ok)
-      .catch((error) => console.log("error", error));
+      .then((response: any) => response.ok)
+      .catch((error: any) => console.log("error", error));
     if (request) {
       dispatch(registration());
     } else {
       dispatch(notRegistration());
     }
-    abc();
+    conditionsTrue();
     localStorage.setItem("data-email", JSON.stringify(array[0].email));
     localStorage.setItem("data-password", JSON.stringify(array[0].password));
   };
@@ -253,8 +261,8 @@ const SignUpComponent = () => {
           )}
         </button>
       </div>
-      <div onClick={func2}>
-        {isCorrectData ? (
+      <div onClick={addData}>
+        {conditionsTrue() ? (
           <Link to={"/confirmation"}>
             <FormButton title={"Sign up"} />
           </Link>

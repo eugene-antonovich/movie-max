@@ -25,6 +25,8 @@ const SignInComponent = () => {
 
   const [password, setPassword] = useState("");
 
+  const [isLogin, setIsLogin] = useState(false);
+
   const getEmail = (event: any) => {
     setEmail(event.target.value);
   };
@@ -49,58 +51,73 @@ const SignInComponent = () => {
 
   const isAuthorized = useSelector((state: any) => state.authorization);
 
-  const abc = () => {
+  const conditionsTrue = () => {
     if (checkEmail && checkPassword && isAuthorized) {
       return true;
     } else {
       return false;
     }
   };
+  
   const token = async () => {
-    if (checkEmail && checkPassword)
-      await fetch("https://studapi.teachmeskills.by/auth/jwt/create/", {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        method: "POST",
-        body: JSON.stringify({
-          email: email,
-          password: password,
-        }),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          localStorage.setItem("refresh", JSON.stringify(data.refresh));
-          localStorage.setItem("access", JSON.stringify(data.access));
-        });
-    try {
-      const response_verify = await fetch(
-        "https://studapi.teachmeskills.by/auth/jwt/verify/",
+    if (checkEmail && checkPassword) {
+      const data = await fetch(
+        "https://studapi.teachmeskills.by/auth/jwt/create/",
         {
           headers: {
             "Content-Type": "application/json",
           },
           method: "POST",
           body: JSON.stringify({
-            token: JSON.parse(localStorage.getItem("access")!),
+            email: email,
+            password: password,
           }),
         }
-      );
-      if (response_verify.ok) {
-        localStorage.setItem('authorization', JSON.stringify(true))
-        dispatch(authorization());
+      )
+        .then((response) => response.json())
+        .then((data) => data);
+
+      if (data) {
+        localStorage.setItem("access", JSON.stringify(data.access));
+        localStorage.setItem("refresh", JSON.stringify(data.refresh));
+        setIsLogin(true);
       } else {
-        localStorage.setItem('authorization', JSON.stringify(false))
-        dispatch(notAuthorization());
+        setIsLogin(false);
       }
-    } catch (error) {}
-    funcName();
-    funcPassword();
-    abc();
+      try {
+        const response_verify = await fetch(
+          "https://studapi.teachmeskills.by/auth/jwt/verify/",
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+            method: "POST",
+            body: JSON.stringify({
+              token: JSON.parse(localStorage.getItem("access")!),
+            }),
+          }
+        );
+        if (response_verify.ok) {
+          localStorage.setItem("authorization", JSON.stringify(true));
+          dispatch(authorization());
+        } else {
+          localStorage.setItem("authorization", JSON.stringify(false));
+          dispatch(notAuthorization());
+        }
+      } catch (error) {}
+      funcName();
+      funcPassword();
+      conditionsTrue();
+    }
   };
 
   return (
     <div className={sign.signInWrap}>
+      {isLogin && (
+        <span className={theme ? sign.wrongLight : sign.wrong}>
+          Wrong login or password
+        </span>
+      )}
       <div className={sign.elementWrap}>
         <input
           type="email"
@@ -131,9 +148,9 @@ const SignInComponent = () => {
           <span className={sign.forgot}>Forgot your password?</span>
         </Link>
       </div>
-        <div onClick={token}>
-          <FormButton title={"Sign in"} />
-        </div>
+      <div onClick={token}>
+        <FormButton title={"Sign in"} />
+      </div>
       <div className={sign.signUpWrap}>
         <span>
           Don't have an account?

@@ -5,13 +5,13 @@ import Confirmation from "./pages/sign-up/confirmation";
 import SignUp from "./pages/sign-up/sign-up";
 import Home from "./pages/home/home";
 import ForgotPassword from "./pages/sign-in/forgot-password";
+import Categories from "./pages/categories/categories";
+import Favorites from "./pages/favorites/favorites";
 import React, { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import { reducer } from "./reducers/reducer";
-import Categories from "./pages/categories/categories";
-import Favorites from "./pages/favorites/favorites";
 
 export const themes = JSON.parse(localStorage.getItem('theme')!) 
 export const store = configureStore({ reducer });

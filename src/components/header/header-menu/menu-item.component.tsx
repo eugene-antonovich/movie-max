@@ -1,10 +1,6 @@
 import menu from "./menu-button.module.scss";
+import { MenuItemProps } from "../../../interface/interface";
 
-interface MenuItemProps {
-  title: string;
-  icon: React.ReactNode;
-  isActive: boolean;
-}
 const MenuItem = (props: MenuItemProps) => {
   return (
     <li className={props.isActive ? menu.item : menu.itemDisabled}>

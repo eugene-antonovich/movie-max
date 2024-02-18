@@ -2,6 +2,7 @@ import card from "../home/home.module.scss";
 import FilmCard from "../../components/cards/film-card/film-card.component";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
+import { ItemInterface, filmCardInterface } from "../../interface/interface";
 
 const SearchResult = () => {
   const [datasArray, setDataArray] = useState([]);
@@ -11,9 +12,10 @@ const SearchResult = () => {
     searchResult();
   }, [moviesBySearch]);
 
+
   const searchResult = async () => {
-    await setDataArray(
-      moviesBySearch.map((item: any) => ({
+    setDataArray(
+      moviesBySearch.map((item: ItemInterface) => ({
         id: item ? item.id : "",
         name: item ? item.name : "",
         imdb: item ? item.rating.imdb : "",
@@ -23,7 +25,6 @@ const SearchResult = () => {
         genres3: item ? item.genres[2]?.name : "",
       }))
     );
-    console.log(datasArray);
   };
   return (
     <>

@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 
 const ConfirmationComponent = () => {
-  const [state, setState] = useState(true);
   const [token, setToken] = useState("");
 
   const getToken = (event: any) => {
@@ -69,9 +68,7 @@ const ConfirmationComponent = () => {
           <input
             type="text"
             placeholder={"enter the link here"}
-            className={
-              state ? confirm.elementInput : confirm.elementInputDisabled
-            }
+            className={confirm.elementInput}
             onChange={getToken}
             id="link"
           />

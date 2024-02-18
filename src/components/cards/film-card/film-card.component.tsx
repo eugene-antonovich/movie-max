@@ -4,23 +4,21 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getFilmById, openModalCard } from "../../../actions/action";
 import { useDispatch, useSelector } from "react-redux";
 import { posterMissing } from "../../../helpers/get-posts";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { ThemeContext } from "../../../App";
+import { FilmCardProps, initialStateTypes } from "../../../interface/interface";
 
-interface FilmCardProps {
-  id: string;
-  image: string;
-  rating: number;
-  name: string;
-  genres: string[];
-}
+
 
 export let favorite = localStorage.getItem("favorite")
   ? JSON.parse(localStorage.getItem("favorite")!)
   : [];
 
 const FilmCard = (props: FilmCardProps) => {
+  const { theme } = useContext(ThemeContext);
+
   const [isFavorite, setIsFavorite] = useState(
-    favorite.some((obj: any) => obj.id === props.id) ? true : false
+    favorite.some((obj: FilmCardProps) => obj.id === props.id) ? true : false
   );
 
   const rating =
@@ -39,8 +37,8 @@ const FilmCard = (props: FilmCardProps) => {
 
   const adToFavorite = (event: any) => {
     event.stopPropagation();
-    if (favorite.some((obj: any) => obj.id === props.id)) {
-      favorite = favorite.filter((item: any) => item.id !== props.id);
+    if (favorite.some((obj: FilmCardProps) => obj.id === props.id)) {
+      favorite = favorite.filter((item: FilmCardProps) => item.id !== props.id);
       setIsFavorite((isFavorite: boolean) => !isFavorite);
     } else {
       favorite.push({
@@ -55,10 +53,14 @@ const FilmCard = (props: FilmCardProps) => {
     localStorage.setItem("favorite", JSON.stringify(favorite));
   };
 
-  const isAuthorized = useSelector((state: any) => state.authorization);
+  const isAuthorized = useSelector((state: initialStateTypes) => state.authorization);
 
   return (
-    <div className={card.cardWrap} id={props.id} onClick={getId}>
+    <div
+      className={theme ? card.cardWrapLight : card.cardWrap}
+      id={props.id}
+      onClick={getId}
+    >
       <div className={card.cardImageWrap}>
         <img src={props.image ? props.image : posterMissing} alt="#" />
         <div className={card.cardRatingWrap}>
@@ -76,10 +78,10 @@ const FilmCard = (props: FilmCardProps) => {
         )}
       </div>
       <div className={card.cardDescriptionWrap}>
-        <div className={card.cardTitle}>
+        <div className={theme ? card.cardTitleLight : card.cardTitle}>
           <h3>{props.name}</h3>
         </div>
-        <ul className={card.cardGenre}>
+        <ul className={theme ? card.cardGenreLight : card.cardGenre}>
           {props.genres.map((item: string, index: number) => (
             <li key={index}>{item}</li>
           ))}
