@@ -13,6 +13,12 @@
   transform: translate(-50%, -50%);
   z-index: 10;
 
+  @media (max-width: 450px) {
+    position: fixed;
+    top: 50%;
+    flex-direction: row;
+  }
+
   &::before {
     content: "";
     position: fixed;
@@ -24,12 +30,23 @@
     top: -100%;
     left: -100%;
     z-index: 0;
+
+    @media (max-width: 450px) {
+      height: 1000vh;
+      width: 100vw;
+      top: -100%;
+      left: -21.5%;
+    }
   }
 
   .cardTopWrap {
     justify-content: space-between;
     display: flex;
     position: relative;
+
+    @media (max-width: 450px) {
+      flex-direction: column;
+    }
 
     .cardButtonClose {
       position: absolute;
@@ -58,6 +75,10 @@
     .cardImageWrap {
       width: 35%;
       position: relative;
+
+      @media (max-width: 450px) {
+        display: none;
+      }
 
       & img {
         width: 100%;
@@ -89,17 +110,15 @@
           background-color: rgb(0, 144, 0);
         }
         .cardRatingMiddle {
-         background-color: rgb(227, 155, 0);
+          background-color: rgb(227, 155, 0);
         }
 
         .cardRatingLow {
           background-color: rgb(227, 64, 0);
-          }
+        }
       }
 
       .cardTrailerWrap {
-        // position: absolute;
-        // top: -1000%;
         display: none;
       }
       &:hover {
@@ -113,7 +132,7 @@
           height: 100%;
           display: flex;
           transform: translate(-50%, -50%);
-  
+
           .cardTrailer {
             transition: 0.5s;
             width: 100%;
@@ -122,7 +141,7 @@
             background-color: transparent;
             border: none;
             color: rgb(196, 196, 196);
-  
+
             &:hover {
               color: gold;
               transition: 0.3s;
@@ -132,37 +151,7 @@
             }
           }
         }
-  
-          // .cardTrailerWindow {
-          //   border: none;
-          //   z-index: 10;
-          //   top: 50%;
-          //   left: 50%;
-          //   transform: translate(-50%, -50%);
-          //   position: fixed;
-          //   width: 100%;
-          //   height: 580px;
-          // }
-  
-          // .cardCloseTrailer {
-          //   transition: 0.5s;
-          //   position: absolute;
-          //   top: 50%;
-          //   right: -30%;
-          //   font-size: 65px;
-          //   transform: translate(0, -50%);
-          //   color: white;
-          //   background-color: transparent;
-          //   border: none;
-  
-          //   &:hover {
-          //     color: gold;
-          //     transition: 0.3s;
-          //     cursor: pointer;
-          //     scale: 1.05;
-          //   }
-          // }
-        }
+      }
     }
 
     .cardInfoWrap {
@@ -174,6 +163,10 @@
       font-size: 18px;
       position: relative;
 
+      @media (max-width: 450px) {
+        font-size: 14px;
+      }
+
       .infoItem {
         margin: 5px 0px;
 
@@ -182,6 +175,11 @@
           margin-left: 10px;
           font-size: 16px;
           font-style: italic;
+
+          @media (max-width: 450px) {
+            font-size: 14px;
+            margin-left: 5px;
+          }
         }
       }
 
@@ -190,15 +188,32 @@
         font-style: italic;
         margin-top: 30px;
 
+        @media (max-width: 450px) {
+          font-size: 14px;
+          width: 200px;
+        }
+
+        @media (max-width: 375px) {
+          font-size: 12px;
+        }
+
         .shortDescriptionTitle {
           font-size: 24px;
           margin-bottom: 10px;
           font-style: normal;
+
+          @media (max-width: 450px) {
+            font-size: 14px;
+          }
         }
 
         .cardPersonTitle {
           font-size: 24px;
           margin-top: 10px;
+
+          @media (max-width: 450px) {
+            font-size: 14px;
+          }
         }
 
         .cardPersonsWrap {
@@ -216,42 +231,40 @@
                 color: white;
                 cursor: pointer;
               }
-
             }
           }
         }
 
+        .cardTrailerWindow {
+          border: none;
+          z-index: 10;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          position: fixed;
+          width: 100%;
+          height: 580px;
+          border-radius: 10px;
+        }
 
-          .cardTrailerWindow {
-            border: none;
-            z-index: 10;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            position: fixed;
-            width: 100%;
-            height: 580px;
-            border-radius: 10px;
+        .cardCloseTrailer {
+          transition: 0.5s;
+          position: absolute;
+          top: 50%;
+          right: -30%;
+          font-size: 65px;
+          transform: translate(0, -50%);
+          color: white;
+          background-color: transparent;
+          border: none;
+
+          &:hover {
+            color: gold;
+            transition: 0.3s;
+            cursor: pointer;
+            scale: 1.05;
           }
-
-          .cardCloseTrailer {
-            transition: 0.5s;
-            position: absolute;
-            top: 50%;
-            right: -30%;
-            font-size: 65px;
-            transform: translate(0, -50%);
-            color: white;
-            background-color: transparent;
-            border: none;
-
-            &:hover {
-              color: gold;
-              transition: 0.3s;
-              cursor: pointer;
-              scale: 1.05;
-            }
-          }
+        }
 
         .descriptionHeaderWrap {
           display: flex;
@@ -261,12 +274,20 @@
           bottom: 0;
           width: 100%;
 
+          @media (max-width: 450px) {
+            bottom: -10px;
+          }
+
           .descriptionHeaderLeft {
             display: flex;
             align-items: center;
 
             .descriptionTitle {
               font-size: 24px;
+
+              @media (max-width: 450px) {
+                font-size: 14px;
+              }
             }
 
             .cardButtonOpenDescription,
@@ -278,11 +299,15 @@
               transition: 0.3s;
               background-color: transparent;
 
+              @media (max-width: 450px) {
+                font-size: 14px;
+              }
+
               &:hover {
-              transition: 0.3s;
-              scale: 1.02;
-              cursor: pointer;
-              color: gold;
+                transition: 0.3s;
+                scale: 1.02;
+                cursor: pointer;
+                color: gold;
               }
 
               &:active {
@@ -335,13 +360,19 @@
     height: 100%;
     padding: 60px;
     overflow: auto;
-    text-overflow: ellipsis;
 
+    @media (max-width: 450px) {
+      padding: 35px;
+    }
 
     .cardDescription {
       font-size: 28px;
       font-style: italic;
       line-height: 30px;
+
+      @media (max-width: 450px) {
+        font-size: 20px;
+      }
     }
   }
 }

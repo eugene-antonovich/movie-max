@@ -1,7 +1,7 @@
 
 const options = {
   method: "GET",
-  headers: { "X-API-KEY": "BQKVY82-WR64N98-G9ZFYBD-0GY2CBB"},
+  headers: { "X-API-KEY":"KZQCWCS-39JM5KG-KV4Z5A1-MZB04E9"},
 };
 
 export async function getPosts(url: string) {

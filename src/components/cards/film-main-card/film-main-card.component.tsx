@@ -4,7 +4,10 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { closeModalCard } from "../../../actions/action";
 import { posterMissing } from "../../../helpers/get-posts";
-import { initialStateTypes, FilmMainCardProps } from "../../../interface/interface";
+import {
+  initialStateTypes,
+  FilmMainCardProps,
+} from "../../../interface/interface";
 import {
   faChevronDown,
   faChevronUp,
