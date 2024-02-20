@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/movie-max/static/css/main.66eb97ba.css",
+    "main.js": "/movie-max/static/js/main.6a205e17.js",
+    "static/js/787.554e5e5a.chunk.js": "/movie-max/static/js/787.554e5e5a.chunk.js",
+    "index.html": "/movie-max/index.html",
+    "main.66eb97ba.css.map": "/movie-max/static/css/main.66eb97ba.css.map",
+    "main.6a205e17.js.map": "/movie-max/static/js/main.6a205e17.js.map",
+    "787.554e5e5a.chunk.js.map": "/movie-max/static/js/787.554e5e5a.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.66eb97ba.css",
+    "static/js/main.6a205e17.js"
+  ]
+}
